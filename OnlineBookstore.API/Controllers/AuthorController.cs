@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookstore.Application.IServices;
 using OnlineBookstore.Application.Models;
+using OnlineBookstore.Application.Utilies;
 
 namespace OnlineBookstore.API.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
     [ApiController]
     public class AuthorController : ControllerBase
     {
@@ -17,6 +18,7 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpGet("GetAllAuthor/{pageIndex}/{pageSize}/{previous}/{next}")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> GetAllAuthors(int pageIndex, int pageSize, bool previous, bool next)
         {
             string[] auth = this.Request.Headers["Authorization"].ToString().Split(':');
@@ -31,6 +33,7 @@ namespace OnlineBookstore.API.Controllers
             }
         }
         [HttpGet("EnableorDisableAuthor/{requestId}")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> EnableorDisableAuthor(string requestId)
         {
             string[] auth = this.Request.Headers["Authorization"].ToString().Split(':');
@@ -46,6 +49,7 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpPost("CreateAuthor")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> CreateAuthor(AuthorRequest request)
         {
             string[] auth = this.Request.Headers["Authorization"].ToString().Split(':');
@@ -53,6 +57,7 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpGet("GetAllAuthorDropdown")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> GetAllAuthorDropdown()
         {
             return Ok(await _authorService.GetAllAuthorDropdownAsync());

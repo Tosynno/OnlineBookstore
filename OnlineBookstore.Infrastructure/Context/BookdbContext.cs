@@ -17,6 +17,7 @@ namespace OnlineBookstore.Infrastructure.Context
 
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Admin_Activity_log> Admin_Activity_logs { get; set; }
         public virtual DbSet<Admin_User> Admin_Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

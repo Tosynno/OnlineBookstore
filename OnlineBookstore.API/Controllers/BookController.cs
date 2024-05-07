@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookstore.Application.IServices;
 using OnlineBookstore.Application.Models;
+using OnlineBookstore.Application.Utilies;
 
 namespace OnlineBookstore.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace OnlineBookstore.API.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet("GetAllBooks/{pageIndex}/{pageSize}/{previous}/{next}")]
-        //[ValidateAuthRequestAttribute]
+        [ValidateAuthRequestAttribute]
         //[ServiceFilter(typeof(EncryptionActionFilter))]
         public async Task<ActionResult> GetAllBooks(int pageIndex, int pageSize, bool previous, bool next)
         {
@@ -35,17 +36,20 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpPost("Create-Book")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> CreateBook(BookRequest request)
         {
             return Ok(await _bookService.CreateBook(request));
         }
 
         [HttpGet("Delete-Book/{BookNumber}")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> DeleteBook(string BookNumber)
         {
             return Ok(await _bookService.DeleteBook(BookNumber));
         }
         [HttpGet("Disable-Enable-Book/{BookNumber}")]
+        [ValidateAuthRequestAttribute]
         public async Task<ActionResult> DisableOrEnableBook(string BookNumber)
         {
             return Ok(await _bookService.DisableOrEnableBook(BookNumber));

@@ -10,5 +10,6 @@ namespace OnlineBookstore.Application.Helpers
     {
         public string LogPath { get; set; }
         public string? Swagger { get; set; }
+        public string ClientKey { get;  set; }
     }
 }

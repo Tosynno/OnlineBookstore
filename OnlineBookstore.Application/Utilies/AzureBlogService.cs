@@ -16,9 +16,7 @@ namespace OnlineBookstore.Application.Utilies
     public class AzureBlogService
     {
         private readonly AppSettings _appSettings;
-        private const string ContainerName = "myfiles";
-        //public const string SuccessMessageKey = "SuccessMessage";
-        //public const string ErrorMessageKey = "ErrorMessage";
+        private const string ContainerName = "tab-backofficeblobservice";
         private readonly BlobServiceClient _blobServiceClient;
         private readonly BlobContainerClient _containerClient;
 
