@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace OnlineBookstore.Infrastructure.Context
 {
-    public class BookdbContext : DbContext
+    public partial class BookdbContext : DbContext
     {
+        public static string ConnectionString { get; set; }
+        public BookdbContext()
+        {
+        }
         public BookdbContext(DbContextOptions<BookdbContext> options)
             : base(options)
         {
@@ -19,6 +23,14 @@ namespace OnlineBookstore.Infrastructure.Context
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Admin_Activity_log> Admin_Activity_logs { get; set; }
         public virtual DbSet<Admin_User> Admin_Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("Cyrillic_General_CI_AS");
@@ -53,7 +65,10 @@ namespace OnlineBookstore.Infrastructure.Context
 
             });
 
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     }
 }

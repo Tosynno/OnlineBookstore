@@ -26,11 +26,17 @@ namespace OnlineBookstore.Application.Repositories
 
         public async Task<object> CreateBookAsync(BookRequest request)
         {
+            var res = await _authrepository.GetAllAsync();
+            var aur = res.FirstOrDefault(c => c.Id == request.AuthorId);
+            if (aur == null)
+            {
+                return "Invalid Author Id";
+            }
             Book sa = new Book();
             sa.BookName = request.BookName;
             sa.Description = request.Description;
             sa.ImageUrl = await _blogService.UploadBlob(request.BookName, request.Imagestring);
-            sa.AuthorId = request.AuthorId;
+            sa.AuthorId = aur.Id;
             sa.IsActive = true;
             sa.IsDeleted = false;
             sa.CreatedBy = 1;

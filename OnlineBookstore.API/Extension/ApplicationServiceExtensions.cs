@@ -27,7 +27,8 @@ namespace OnlineBookstore.API.Extension
         });
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContextPool<BookdbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            //services.AddDbContextPool<BookdbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            BookdbContext.ConnectionString = config.GetConnectionString("DefaultConnection");
             services.AddSingleton(x => new BlobServiceClient(config.GetConnectionString("StorageAccount")));
             // Other service configurations...
 
@@ -51,6 +52,7 @@ namespace OnlineBookstore.API.Extension
 
             //services.AddScoped<EncryptionActionFilter>();
             services.AddScoped<AzureBlogService>();
+            services.AddScoped<BookdbContext>();
             services.AddHttpContextAccessor();
 
             services.Configure<JwtOptions>(config.GetSection("Jwt"));

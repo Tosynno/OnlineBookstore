@@ -49,7 +49,7 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpPost("CreateAuthor")]
-        [ValidateAuthRequestAttribute]
+        //[ValidateAuthRequestAttribute]
         public async Task<ActionResult> CreateAuthor(AuthorRequest request)
         {
             string[] auth = this.Request.Headers["Authorization"].ToString().Split(':');
@@ -57,7 +57,7 @@ namespace OnlineBookstore.API.Controllers
         }
 
         [HttpGet("GetAllAuthorDropdown")]
-        [ValidateAuthRequestAttribute]
+        //[ValidateAuthRequestAttribute]
         public async Task<ActionResult> GetAllAuthorDropdown()
         {
             return Ok(await _authorService.GetAllAuthorDropdownAsync());

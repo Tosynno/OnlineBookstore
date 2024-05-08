@@ -29,7 +29,7 @@ namespace OnlineBookstore.Application.Repositories
             author.IsActive = true;
             author.ImageUrl = await _blogService.UploadBlob(request.AuthorName, request.Imagebase64string);
             author.QueryString = Guid.NewGuid().ToString(); 
-            AddAsync(author);
+            await AddAsync(author);
             return "SUCCESSFUL";
         }
 
